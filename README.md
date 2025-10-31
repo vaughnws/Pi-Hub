@@ -113,8 +113,8 @@ It's also a practical way to learn system administration, networking, and contai
 - SSH tunneling and secure remote access
 - Power management and hardware optimization
 - 3D design and physical product engineering
-
-![IMG_0227](https://github.com/user-attachments/assets/63a0f53d-1d37-4764-90ad-6fe0b77328f4)
+  
+![IMG_0227](https://github.com/user-attachments/assets/30ce2e38-0218-4c43-a137-b3deb6212cfa)
 
 ## Technical Details
 
