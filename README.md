@@ -1,4 +1,7 @@
 # Pi-Hub
+<img width="302" height="403" alt="IMG_0231-min" src="https://github.com/user-attachments/assets/be08b85b-f0ee-4b85-ae39-53e7daf428dc" />
+
+![IMG_0229](https://github.com/user-attachments/assets/7f818146-dbe0-4b6d-a9f7-cde12d5c0050)
 
 A completely portable, self-hosted development environment running on a Raspberry Pi 4. Everything you need to code, deploy, and manage projects from anywhere, with 10 hours of battery life, automatic network failover, automated AI Documentation generation, MCP Server integration, and autonomous health management.
 
@@ -35,6 +38,8 @@ Let's talk money. Here's what equivalent cloud services would cost:
 
 The Pi pays for itself in less than half a year, and you own the hardware.
 
+![IMG_0228](https://github.com/user-attachments/assets/27b363ca-1a05-4e48-84c2-07bb42d611f5)
+
 ## What It Does
 
 Pi-Hub transforms a Raspberry Pi into a complete development system with the following services:
@@ -55,6 +60,8 @@ Pi-Hub transforms a Raspberry Pi into a complete development system with the fol
 - **Custom LCD Display**: Physical 20x4 LCD showing system stats (CPU, RAM, disk usage, network info) and service status with an 8x8 LED matrix displaying system health as emoji faces.
 
 All services run in Docker containers connected through a shared network. External access is handled by Cloudflare Tunnels, so you don't need to mess with port forwarding or expose your home IP.
+
+![IMG_0222](https://github.com/user-attachments/assets/a0f4cde7-766c-4b3a-9ba4-87cd2f72a025)
 
 ## The Portable Setup
 
@@ -88,6 +95,8 @@ This isn't just a Pi sitting on a desk, its a Pi sitting on a desk, but cool:
 
 This setup means you can grab the case, throw it in a backpack, and have your entire development environment operational wherever you go.
 
+![IMG_0223](https://github.com/user-attachments/assets/c3eade4b-342b-4478-a8e2-58129ff6cd18)
+
 ## Why This Exists
 
 I wanted a development environment I could access from any device without depending on cloud services or subscription fees. Laptop, desktop, tablet, phone, doesn't matter, open a browser and everything's there.
@@ -106,6 +115,8 @@ It's also a practical way to learn system administration, networking, and contai
 - SSH tunneling and secure remote access
 - Power management and hardware optimization
 - 3D design and physical product engineering
+
+<img width="4032" height="3024" alt="IMG_0227-min" src="https://github.com/user-attachments/assets/0e38fbe2-edc2-407c-8b72-b8ea7d0d72c1" />
 
 ## Technical Details
 
@@ -166,6 +177,8 @@ Includes a fun startup animation sequence with a bunch of animations, change the
 
 ## AI Integrations
 *adding documentation tomorrow, its working but im going to bed*
+
+<img width="3024" height="4032" alt="IMG_0231-min" src="https://github.com/user-attachments/assets/ff75e972-4a9e-42b3-a85a-0c5fb752e9b9" />
 
 ## Who This Is For
 
@@ -261,25 +274,6 @@ A portable device can be lost, stolen, or damaged. The waterproof case protects 
 - Battery level indicator on LED matrix
 - Scrolling text for long messages
 
-## Why This Setup Works
-
-**Cost Effective**: One-time hardware investment beats recurring cloud costs within 6 months.
-
-**Actually Portable**: Battery power and network failover mean it works anywhere, not just "portable between power outlets."
-
-**Educational**: Building and maintaining this teaches practical DevOps and infrastructure skills.
-
-**Flexible**: Add, remove, or modify services without changing cloud subscriptions.
-
-**Private**: All data stays on hardware you physically control.
-
-**Professional**: The clean physical presentation and enterprise-grade software stack demonstrate real engineering thinking.
-
-**Reliable**: Containerization means services are isolated and reproducible. SSD storage means consistent performance.
-
-**Expandable**: The 2TB SSD and modular Docker setup mean you can keep adding services without starting over.
-
-The combination of thoughtful hardware design, robust software architecture, and intelligent automation creates something that's both practical for daily use and impressive as a portfolio project. It demonstrates that you can build professional infrastructure on consumer hardware with the right planning and execution.
 
 ## License
 
