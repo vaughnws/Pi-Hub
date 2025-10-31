@@ -1,0 +1,26 @@
+{
+  "name": "homelab-mcp-server",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "mcp-server.js",
+  "scripts": {
+    "start": "DOTENV_SILENT=true node mcp-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "sed -i '' '/add secrets lifecycle management/d' node_modules/dotenv/lib/main.js"
+  },
+  "keywords": [
+    "mcp",
+    "homelab",
+    "docker",
+    "n8n"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "Full-featured MCP server for Raspberry Pi homelab control",
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.51.0",
+    "@modelcontextprotocol/sdk": "^1.19.1",
+    "axios": "^1.12.2",
+    "dotenv": "^17.2.3"
+  }
+}

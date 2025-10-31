@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  qwen-ui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: qwen-ui
+    restart: unless-stopped
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./open-webui-data:/app/backend/data
+    environment:
+      - OLLAMA_BASE_URL=https://ai-server.vaughnws.ca # Set to your Ollama server URL if using Ollama
+      - WEBUI_NAME="Homelab AI Assistant" 
+      - ENABLE_OLLAMA_API=false
+    networks:
+      - homelab-network
+
+networks:
+  homelab-network:
+    external: true

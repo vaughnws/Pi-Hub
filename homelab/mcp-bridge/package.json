@@ -1,0 +1,9 @@
+{
+  "name": "mcp-simple-bridge",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "simple-bridge.js",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  gitea:
+    image: gitea/gitea:1.21
+    container_name: gitea
+    restart: unless-stopped
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=postgres
+      - GITEA__database__HOST=postgres:5432
+      - GITEA__database__NAME=gitea # SET THIS YOURSELF
+      - GITEA__database__USER=gitea # SET THIS YOURSELF
+      - GITEA__database__PASSWD=thisisasecurepassword # SET THIS YOURSELF
+      - GITEA__server__DOMAIN=git.vaughnws.ca # SET THIS YOURSELF
+      - GITEA__server__SSH_DOMAIN=git.vaughnws.ca # SET THIS YOURSELF
+      - GITEA__server__ROOT_URL=https://git.vaughnws.ca # SET THIS YOURSELF
+      - GITEA__actions__ENABLED=true
+    volumes:
+      - ./data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    depends_on:
+      - postgres
+    networks:
+      - homelab-network
+
+  postgres:
+    image: postgres:15
+    container_name: gitea-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=itsme # SET THIS YOURSELF
+      - POSTGRES_PASSWORD=password123 # SET THIS YOURSELF
+      - POSTGRES_DB=giterino # SET THIS YOURSELF
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - homelab-network
+
+networks:
+  homelab-network:
+    external: true

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pi-Hub Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: white;
+      min-height: 100vh;
+    }
+    
+    .dashboard-container { max-width: 1800px; margin: 0 auto; padding: 20px; }
+    
+    .header {
+      background: rgba(30, 30, 30, 0.95);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 107, 53, 0.3);
+    }
+    
+    .header h1 {
+      background: linear-gradient(90deg, #FF6B35 0%, #ff8255 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2.5em;
+      margin-bottom: 5px;
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .tab {
+      padding: 10px 20px;
+      background: #2d2d2d;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .tab.active {
+      background: #FF6B35;
+    }
+    
+    .tab:hover { background: #3d3d3d; }
+    .tab.active:hover { background: #FF6B35; }
+    
+    .main-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+    
+    .panel {
+      background: rgba(30, 30, 30, 0.95);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid rgba(255, 107, 53, 0.2);
+    }
+    
+    .panel-title {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #FF6B35;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .service-card {
+      background: #2d2d2d;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #3d3d3d;
+      transition: all 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+      display: block;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-2px);
+      border-color: #FF6B35;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    }
+    
+    .health-indicator {
+      text-align: center;
+      padding: 20px;
+      background: #2d2d2d;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    
+    .health-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    
+    .health-dot.healthy { background: #10b981; }
+    .health-dot.warning { background: #f59e0b; }
+    .health-dot.critical { background: #ef4444; }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .resource-bar {
+      margin-bottom: 15px;
+    }
+    
+    .resource-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+    
+    .bar-container {
+      width: 100%;
+      height: 8px;
+      background: #2d2d2d;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .bar-fill {
+      height: 100%;
+      transition: width 0.5s, background 0.3s;
+      border-radius: 4px;
+    }
+    
+    .bar-fill.good { background: #10b981; }
+    .bar-fill.warning { background: #f59e0b; }
+    .bar-fill.critical { background: #ef4444; }
+    
+    .container-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .container-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background: #2d2d2d;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border: 1px solid #3d3d3d;
+    }
+    
+    .container-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    
+    .container-status.running { background: #10b981; animation: pulse 2s infinite; }
+    .container-status.stopped { background: #ef4444; }
+    
+    .container-controls {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .control-btn {
+      padding: 5px 10px;
+      background: #3d3d3d;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-size: 0.85em;
+    }
+    
+    .control-btn:hover { background: #4d4d4d; }
+    .control-btn.start:hover { background: #10b981; }
+    .control-btn.stop:hover { background: #ef4444; }
+    .control-btn.restart:hover { background: #3b82f6; }
+    
+    .messages-container {
+      max-height: 500px;
+      overflow-y: auto;
+      padding: 15px;
+      background: #2d2d2d;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    
+    .message-bubble {
+      margin-bottom: 15px;
+      position: relative;
+    }
+    
+    .message-bubble.own {
+      text-align: right;
+    }
+    
+    .message-meta {
+      font-size: 0.75em;
+      color: #888;
+      margin-bottom: 5px;
+    }
+    
+    .message-text {
+      display: inline-block;
+      padding: 10px 15px;
+      border-radius: 12px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+    
+    .message-bubble.own .message-text {
+      background: linear-gradient(135deg, #FF6B35 0%, #ff8255 100%);
+      border-bottom-right-radius: 4px;
+    }
+    
+    .message-bubble:not(.own) .message-text {
+      background: #3d3d3d;
+      border-bottom-left-radius: 4px;
+    }
+    
+    .message-input-container {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .message-input {
+      flex: 1;
+      padding: 12px;
+      background: #2d2d2d;
+      border: 1px solid #3d3d3d;
+      border-radius: 8px;
+      color: white;
+      font-size: 1em;
+    }
+    
+    .message-input:focus {
+      outline: none;
+      border-color: #FF6B35;
+    }
+    
+    .send-btn {
+      padding: 12px 24px;
+      background: #FF6B35;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .send-btn:hover { background: #ff8255; }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    
+    .modal.active { display: flex; }
+    
+    .modal-content {
+      background: #2d2d2d;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      border: 1px solid #FF6B35;
+    }
+    
+    .pin-input {
+      width: 100%;
+      padding: 15px;
+      background: #1a1a1a;
+      border: 1px solid #3d3d3d;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.5em;
+      text-align: center;
+      letter-spacing: 10px;
+      margin: 20px 0;
+    }
+    
+    .pin-input:focus {
+      outline: none;
+      border-color: #FF6B35;
+    }
+    
+    .hidden { display: none; }
+    
+    @media (max-width: 1024px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="header">
+      <h1>Pi-Hub</h1>
+      <p style="color: #aaa;">Raspberry Pi Development Environment</p>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('dashboard')">Dashboard</button>
+        <button class="tab" onclick="switchTab('messages')">Messages</button>
+      </div>
+    </div>
+
+    <div id="dashboard-view">
+      <div class="main-grid">
+        <div>
+          <!-- Services -->
+          <div class="panel">
+            <h2 class="panel-title">Services</h2>
+            <div class="services-grid" id="services-grid"></div>
+          </div>
+
+          <!-- Compact Messages -->
+          <div class="panel" style="margin-top: 20px;">
+            <h2 class="panel-title">Message Board</h2>
+            <div class="messages-container" id="compact-messages" style="max-height: 200px;"></div>
+            <div class="message-input-container">
+              <input type="text" class="message-input" id="message-input-compact" placeholder="Type a message..." onkeypress="if(event.key==='Enter') sendMessage()">
+              <button class="send-btn" onclick="sendMessage()">Send</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <!-- Health -->
+          <div class="panel">
+            <h2 class="panel-title"> System Health</h2>
+            <div class="health-indicator" id="health-indicator"></div>
+          </div>
+
+          <!-- Resources -->
+          <div class="panel">
+            <h2 class="panel-title"> Resources</h2>
+            <div id="resources"></div>
+          </div>
+
+          <!-- Containers -->
+          <div class="panel">
+            <h2 class="panel-title"> Containers <span id="lock-icon" style="cursor: pointer; margin-left: auto; font-size: 0.8em;" onclick="showPinModal()"></span></h2>
+            <div class="container-list" id="container-list"></div>
+            <div id="bulk-controls" class="hidden" style="margin-top: 15px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+              <button class="control-btn start" onclick="dockerAction('start-all')">Start All</button>
+              <button class="control-btn restart" onclick="dockerAction('restart-all')">Restart All</button>
+              <button class="control-btn stop" onclick="dockerAction('stop-all')">Stop All</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="messages-view" class="hidden">
+      <div class="panel">
+        <h2 class="panel-title"> Message Board</h2>
+        <div class="messages-container" id="full-messages" style="max-height: 600px;"></div>
+        <div class="message-input-container">
+          <input type="text" class="message-input" id="message-input-full" placeholder="Type a message..." onkeypress="if(event.key==='Enter') sendMessage()">
+          <button class="send-btn" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIN Modal -->
+  <div class="modal" id="pin-modal">
+    <div class="modal-content">
+      <h2 style="color: #FF6B35; margin-bottom: 10px;"> Enter PIN</h2>
+      <p style="color: #aaa; margin-bottom: 20px;">PIN required for Docker controls</p>
+      <input type="password" class="pin-input" id="pin-input" maxlength="4" placeholder="••••" onkeypress="if(event.key==='Enter') checkPin()">
+      <button class="send-btn" style="width: 100%;" onclick="checkPin()">Unlock</button>
+      <button class="control-btn" style="width: 100%; margin-top: 10px;" onclick="closePinModal()">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://' + window.location.hostname + ':3333/api';
+    let isPinUnlocked = sessionStorage.getItem('pinUnlocked') === 'true';
+    let username = localStorage.getItem('username') || '';
+    let currentTab = 'dashboard';
+
+    const services = [
+      { name: 'Gitea', subtitle: 'Git Repository & CI/CD', url: 'https://git.vaughnws.ca' },
+      { name: 'Code Server', subtitle: 'VS Code in Browser', url: 'https://code.vaughnws.ca' },
+      { name: 'AI Assistant', subtitle: 'Qwen2.5 Coding AI', url: 'https://ai.vaughnws.ca' },
+      { name: 'N8N', subtitle: 'Workflow Automation', url: 'https://n8n.vaughnws.ca' },
+      { name: 'File Browser', subtitle: 'File Management', url: 'https://files.vaughnws.ca' },
+      { name: 'Documentation', subtitle: 'BookStack Wiki', url: 'https://docs.vaughnws.ca' },
+      { name: 'Uptime Kuma', subtitle: 'Service Status', url: 'https://status.vaughnws.ca' },
+      { name: 'Portainer', subtitle: 'Container Management', url: 'https://docker.vaughnws.ca' }
+    ];
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      if (tab === 'dashboard') {
+        document.getElementById('dashboard-view').classList.remove('hidden');
+        document.getElementById('messages-view').classList.add('hidden');
+      } else {
+        document.getElementById('dashboard-view').classList.add('hidden');
+        document.getElementById('messages-view').classList.remove('hidden');
+        loadMessages();
+      }
+    }
+
+    function renderServices() {
+      const grid = document.getElementById('services-grid');
+      grid.innerHTML = services.map(s => `
+        <a href="${s.url}" target="_blank" class="service-card">
+          <div style="font-weight: bold; margin-bottom: 5px; font-size: 1.1em;">${s.name}</div>
+          <div style="font-size: 0.85em; color: #aaa;">${s.subtitle}</div>
+        </a>
+      `).join('');
+    }
+
+    async function updateStats() {
+      try {
+        const res = await fetch(`${API_BASE}/system/stats`);
+        const stats = await res.json();
+        
+        const resourcesHTML = `
+          ${createResourceBar('CPU', stats.cpu, 80, 90)}
+          ${createResourceBar('RAM', stats.ram, 80, 90)}
+          ${createResourceBar('Disk', stats.disk, 85, 95)}
+          ${createResourceBar('Temp', Math.round((stats.temp / 85) * 100), 65, 75)}
+          <div style="text-align: center; margin-top: 15px; color: #aaa; font-size: 0.9em;">
+            Uptime: ${stats.uptime}
+          </div>
+        `;
+        document.getElementById('resources').innerHTML = resourcesHTML;
+      } catch (err) {
+        console.error('Error fetching stats:', err);
+      }
+    }
+
+    function createResourceBar(label, value, warning, critical) {
+      let color = 'good';
+      if (value >= critical) color = 'critical';
+      else if (value >= warning) color = 'warning';
+      
+      return `
+        <div class="resource-bar">
+          <div class="resource-label">
+            <span>${label}</span>
+            <span>${value}%</span>
+          </div>
+          <div class="bar-container">
+            <div class="bar-fill ${color}" style="width: ${value}%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    async function updateContainers() {
+      try {
+        const res = await fetch(`${API_BASE}/docker/containers`);
+        const containers = await res.json();
+        
+        const runningCount = containers.filter(c => c.status === 'running').length;
+        const healthHTML = `
+          <div class="health-dot ${runningCount === containers.length ? 'healthy' : runningCount >= containers.length - 1 ? 'warning' : 'critical'}"></div>
+          <div style="font-size: 1.5em; margin: 10px 0; text-transform: uppercase;">
+            ${runningCount === containers.length ? 'HEALTHY' : runningCount >= containers.length - 1 ? 'WARNING' : 'CRITICAL'}
+          </div>
+          <div style="color: #aaa;">${runningCount}/${containers.length} services running</div>
+        `;
+        document.getElementById('health-indicator').innerHTML = healthHTML;
+        
+        const containerHTML = containers.map(c => `
+          <div class="container-item">
+            <div style="display: flex; align-items: center;">
+              <div class="container-status ${c.status}"></div>
+              <span style="font-family: monospace; font-size: 0.9em;">${c.name}</span>
+            </div>
+            ${isPinUnlocked ? `
+              <div class="container-controls">
+                <button class="control-btn start" onclick="dockerAction('start', '${c.name}')">▶</button>
+                <button class="control-btn stop" onclick="dockerAction('stop', '${c.name}')">■</button>
+                <button class="control-btn restart" onclick="dockerAction('restart', '${c.name}')">↻</button>
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+        document.getElementById('container-list').innerHTML = containerHTML;
+        
+        document.getElementById('bulk-controls').classList.toggle('hidden', !isPinUnlocked);
+        document.getElementById('lock-icon').textContent = isPinUnlocked ? '🔓' : '🔒';
+      } catch (err) {
+        console.error('Error fetching containers:', err);
+      }
+    }
+
+    function showPinModal() {
+      if (!isPinUnlocked) {
+        document.getElementById('pin-modal').classList.add('active');
+        document.getElementById('pin-input').focus();
+      }
+    }
+
+    function closePinModal() {
+      document.getElementById('pin-modal').classList.remove('active');
+      document.getElementById('pin-input').value = '';
+    }
+
+    function checkPin() {
+      const pin = document.getElementById('pin-input').value;
+      if (pin === '1234') { // Change this PIN as needed
+        isPinUnlocked = true;
+        sessionStorage.setItem('pinUnlocked', 'true');
+        closePinModal();
+        updateContainers();
+      } else {
+        alert('Invalid PIN');
+        document.getElementById('pin-input').value = '';
+      }
+    }
+
+    async function dockerAction(action, container = null) {
+      const msg = container ? `${action.toUpperCase()} ${container}?` : `${action.toUpperCase()}?`;
+      if (!confirm(msg)) return;
+      
+      try {
+        const res = await fetch(`${API_BASE}/docker/${action}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ container })
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(data.message);
+          updateContainers();
+        } else {
+          alert('Action failed: ' + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        console.error('Docker action error:', err);
+        alert('Failed to perform action');
+      }
+    }
+
+    async function loadMessages() {
+      try {
+        const res = await fetch(`${API_BASE}/messages`);
+        const messages = await res.json();
+        renderMessages(messages, 'full-messages');
+        renderMessages(messages.slice(-3), 'compact-messages');
+      } catch (err) {
+        console.error('Error loading messages:', err);
+      }
+    }
+
+    function renderMessages(messages, containerId) {
+      const container = document.getElementById(containerId);
+      if (!messages.length) {
+        container.innerHTML = '<p style="text-align: center; color: #aaa; padding: 20px;">No messages yet. Be the first to post!</p>';
+        return;
+      }
+      
+      container.innerHTML = messages.map(msg => {
+        const isOwn = msg.username === username || (username === '' && msg.username === 'Anonymous');
+        return `
+          <div class="message-bubble ${isOwn ? 'own' : ''}">
+            <div class="message-meta">${msg.username} • ${formatTimestamp(msg.timestamp)}</div>
+            <div class="message-text">
+              ${escapeHtml(msg.text)}
+              <button onclick="deleteMessage(${msg.id})" style="background: rgba(239, 68, 68, 0.8); border: none; color: white; padding: 3px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75em; margin-left: 10px;">Delete</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function formatTimestamp(timestamp) {
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diffMs = now - date;
+      const diffMins = Math.floor(diffMs / 60000);
+      
+      if (diffMins < 1) return 'just now';
+      if (diffMins < 60) return `${diffMins}m ago`;
+      if (diffMins < 1440) return `${Math.floor(diffMins / 60)}h ago`;
+      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    async function sendMessage() {
+      const input = currentTab === 'dashboard' ? 
+        document.getElementById('message-input-compact') : 
+        document.getElementById('message-input-full');
+      const text = input.value.trim();
+      
+      if (!text) return;
+      
+      if (!username) {
+        const name = prompt('Enter your name (or leave blank for Anonymous):');
+        if (name !== null) {
+          username = name.trim() || 'Anonymous';
+          localStorage.setItem('username', username);
+        } else {
+          return;
+        }
+      }
+      
+      try {
+        const res = await fetch(`${API_BASE}/messages`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: username,
+            text: text,
+            timestamp: new Date().toISOString()
+          })
+        });
+        
+        if (res.ok) {
+          input.value = '';
+          loadMessages();
+        } else {
+          alert('Failed to send message');
+        }
+      } catch (err) {
+        console.error('Error sending message:', err);
+        alert('Failed to send message');
+      }
+    }
+
+    async function deleteMessage(id) {
+      if (!confirm('Delete this message?')) return;
+      
+      try {
+        const res = await fetch(`${API_BASE}/messages/${id}`, {
+          method: 'DELETE'
+        });
+        
+        if (res.ok) {
+          loadMessages();
+        } else {
+          alert('Failed to delete message');
+        }
+      } catch (err) {
+        console.error('Error deleting message:', err);
+        alert('Failed to delete message');
+      }
+    }
+
+    // Initialize
+    renderServices();
+    updateStats();
+    updateContainers();
+    loadMessages();
+
+    // Auto-refresh every 10 seconds
+    setInterval(() => {
+      updateStats();
+      updateContainers();
+      if (currentTab === 'messages') {
+        loadMessages();
+      }
+    }, 10000);
+
+    // Refresh messages more frequently when on messages tab
+    setInterval(() => {
+      if (currentTab === 'messages') {
+        loadMessages();
+      }
+    }, 5000);
+  </script>
+</body>
+</html>

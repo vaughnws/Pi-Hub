@@ -1,0 +1,32 @@
+services:
+  dashboard:
+    build: ./frontend
+    container_name: pi-hub-dashboard
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - REACT_APP_API_URL=http://${HOST_IP:-localhost}:3333/api
+    networks:
+      - homelab-network
+
+  dashboard-api:
+    image: node:18-alpine
+    container_name: dashboard-api
+    restart: unless-stopped
+    ports:
+      - "3333:3333"
+    volumes:
+      - ./api:/app
+      - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    working_dir: /app
+    command: sh -c "npm install && node server.js"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - homelab-network
+
+networks:
+  homelab-network:
+    external: true
