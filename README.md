@@ -1,6 +1,7 @@
 # Pi-Hub
-<img width="302" height="403" alt="IMG_0231-min" src="https://github.com/user-attachments/assets/be08b85b-f0ee-4b85-ae39-53e7daf428dc" />
-<img width="302" height="403" alt="IMG_0231-min" src="https://github.com/user-attachments/assets/7f818146-dbe0-4b6d-a9f7-cde12d5c0050" />
+![IMG_0222](https://github.com/user-attachments/assets/59678229-2af0-4993-b6cb-95dbd53df1e0)
+
+
 
 A completely portable, self-hosted development environment running on a Raspberry Pi 4. Everything you need to code, deploy, and manage projects from anywhere, with 10 hours of battery life, automatic network failover, automated AI Documentation generation, MCP Server integration, and autonomous health management.
 
@@ -37,7 +38,7 @@ Let's talk money. Here's what equivalent cloud services would cost:
 
 The Pi pays for itself in less than half a year, and you own the hardware.
 
-<img width="3024" height="4032" alt="IMG_0231-min" src="https://github.com/user-attachments/assets/27b363ca-1a05-4e48-84c2-07bb42d611f5" />
+img
 
 
 ## What It Does
@@ -61,7 +62,7 @@ Pi-Hub transforms a Raspberry Pi into a complete development system with the fol
 
 All services run in Docker containers connected through a shared network. External access is handled by Cloudflare Tunnels, so you don't need to mess with port forwarding or expose your home IP.
 
-<img width="3024" height="4032" alt="IMG_0231-min" src="https://github.com/user-attachments/assets/a0f4cde7-766c-4b3a-9ba4-87cd2f72a025" />
+img
 
 ## The Portable Setup
 
@@ -95,7 +96,7 @@ This isn't just a Pi sitting on a desk, its a Pi sitting on a desk, but cool:
 
 This setup means you can grab the case, throw it in a backpack, and have your entire development environment operational wherever you go.
 
-<img width="3024" height="4032" alt="IMG_0231-min" src="https://github.com/user-attachments/assets/c3eade4b-342b-4478-a8e2-58129ff6cd18" />
+img
 
 ## Why This Exists
 
@@ -116,7 +117,7 @@ It's also a practical way to learn system administration, networking, and contai
 - Power management and hardware optimization
 - 3D design and physical product engineering
 
-<img width="4032" height="3024" alt="IMG_0227-min" src="https://github.com/user-attachments/assets/0e38fbe2-edc2-407c-8b72-b8ea7d0d72c1" />
+img
 
 ## Technical Details
 
@@ -178,7 +179,7 @@ Includes a fun startup animation sequence with a bunch of animations, change the
 ## AI Integrations
 *adding documentation tomorrow, its working but im going to bed*
 
-<img width="3024" height="4032" alt="IMG_0231-min" src="https://github.com/user-attachments/assets/ff75e972-4a9e-42b3-a85a-0c5fb752e9b9" />
+img
 
 ## Who This Is For
 
