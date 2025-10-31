@@ -1,7 +1,5 @@
 # Pi-Hub
-![IMG_0222](https://github.com/user-attachments/assets/59678229-2af0-4993-b6cb-95dbd53df1e0)
-
-
+![IMG_0229](https://github.com/user-attachments/assets/dfdd3503-b880-4696-a203-83002446960b)
 
 A completely portable, self-hosted development environment running on a Raspberry Pi 4. Everything you need to code, deploy, and manage projects from anywhere, with 10 hours of battery life, automatic network failover, automated AI Documentation generation, MCP Server integration, and autonomous health management.
 
@@ -38,8 +36,7 @@ Let's talk money. Here's what equivalent cloud services would cost:
 
 The Pi pays for itself in less than half a year, and you own the hardware.
 
-img
-
+![IMG_0223](https://github.com/user-attachments/assets/ec5458b1-2838-4dbe-a390-ebdbd8865ca7)
 
 ## What It Does
 
@@ -62,7 +59,7 @@ Pi-Hub transforms a Raspberry Pi into a complete development system with the fol
 
 All services run in Docker containers connected through a shared network. External access is handled by Cloudflare Tunnels, so you don't need to mess with port forwarding or expose your home IP.
 
-img
+![IMG_0222](https://github.com/user-attachments/assets/12cbd167-23fc-4bb5-8eb4-588fd844c540)
 
 ## The Portable Setup
 
@@ -96,7 +93,7 @@ This isn't just a Pi sitting on a desk, its a Pi sitting on a desk, but cool:
 
 This setup means you can grab the case, throw it in a backpack, and have your entire development environment operational wherever you go.
 
-img
+![IMG_0228](https://github.com/user-attachments/assets/b347caa2-ed90-41af-aea9-f301221d5655)
 
 ## Why This Exists
 
@@ -117,7 +114,7 @@ It's also a practical way to learn system administration, networking, and contai
 - Power management and hardware optimization
 - 3D design and physical product engineering
 
-img
+![IMG_0227](https://github.com/user-attachments/assets/63a0f53d-1d37-4764-90ad-6fe0b77328f4)
 
 ## Technical Details
 
@@ -179,7 +176,7 @@ Includes a fun startup animation sequence with a bunch of animations, change the
 ## AI Integrations
 *adding documentation tomorrow, its working but im going to bed*
 
-img
+![IMG_0226](https://github.com/user-attachments/assets/22d5e024-5e8c-4b9b-8dcc-f8be6b6660c4)
 
 ## Who This Is For
 
