@@ -1,4 +1,5 @@
 # Pi-Hub
+![IMG_0229](https://github.com/user-attachments/assets/dfdd3503-b880-4696-a203-83002446960b)
 
 A completely portable, self-hosted development environment running on a Raspberry Pi 4. Everything you need to code, deploy, and manage projects from anywhere, with 10 hours of battery life, automatic network failover, automated AI Documentation generation, MCP Server integration, and autonomous health management.
 
@@ -35,6 +36,8 @@ Let's talk money. Here's what equivalent cloud services would cost:
 
 The Pi pays for itself in less than half a year, and you own the hardware.
 
+![IMG_0223](https://github.com/user-attachments/assets/ec5458b1-2838-4dbe-a390-ebdbd8865ca7)
+
 ## What It Does
 
 Pi-Hub transforms a Raspberry Pi into a complete development system with the following services:
@@ -55,6 +58,8 @@ Pi-Hub transforms a Raspberry Pi into a complete development system with the fol
 - **Custom LCD Display**: Physical 20x4 LCD showing system stats (CPU, RAM, disk usage, network info) and service status with an 8x8 LED matrix displaying system health as emoji faces.
 
 All services run in Docker containers connected through a shared network. External access is handled by Cloudflare Tunnels, so you don't need to mess with port forwarding or expose your home IP.
+
+![IMG_0222](https://github.com/user-attachments/assets/12cbd167-23fc-4bb5-8eb4-588fd844c540)
 
 ## The Portable Setup
 
@@ -88,6 +93,8 @@ This isn't just a Pi sitting on a desk, its a Pi sitting on a desk, but cool:
 
 This setup means you can grab the case, throw it in a backpack, and have your entire development environment operational wherever you go.
 
+![IMG_0228](https://github.com/user-attachments/assets/b347caa2-ed90-41af-aea9-f301221d5655)
+
 ## Why This Exists
 
 I wanted a development environment I could access from any device without depending on cloud services or subscription fees. Laptop, desktop, tablet, phone, doesn't matter, open a browser and everything's there.
@@ -106,6 +113,8 @@ It's also a practical way to learn system administration, networking, and contai
 - SSH tunneling and secure remote access
 - Power management and hardware optimization
 - 3D design and physical product engineering
+  
+![IMG_0227](https://github.com/user-attachments/assets/30ce2e38-0218-4c43-a137-b3deb6212cfa)
 
 ## Technical Details
 
@@ -166,6 +175,8 @@ Includes a fun startup animation sequence with a bunch of animations, change the
 
 ## AI Integrations
 *adding documentation tomorrow, its working but im going to bed*
+
+![IMG_0226](https://github.com/user-attachments/assets/22d5e024-5e8c-4b9b-8dcc-f8be6b6660c4)
 
 ## Who This Is For
 
@@ -261,25 +272,6 @@ A portable device can be lost, stolen, or damaged. The waterproof case protects 
 - Battery level indicator on LED matrix
 - Scrolling text for long messages
 
-## Why This Setup Works
-
-**Cost Effective**: One-time hardware investment beats recurring cloud costs within 6 months.
-
-**Actually Portable**: Battery power and network failover mean it works anywhere, not just "portable between power outlets."
-
-**Educational**: Building and maintaining this teaches practical DevOps and infrastructure skills.
-
-**Flexible**: Add, remove, or modify services without changing cloud subscriptions.
-
-**Private**: All data stays on hardware you physically control.
-
-**Professional**: The clean physical presentation and enterprise-grade software stack demonstrate real engineering thinking.
-
-**Reliable**: Containerization means services are isolated and reproducible. SSD storage means consistent performance.
-
-**Expandable**: The 2TB SSD and modular Docker setup mean you can keep adding services without starting over.
-
-The combination of thoughtful hardware design, robust software architecture, and intelligent automation creates something that's both practical for daily use and impressive as a portfolio project. It demonstrates that you can build professional infrastructure on consumer hardware with the right planning and execution.
 
 ## License
 
